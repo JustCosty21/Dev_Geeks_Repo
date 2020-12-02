@@ -2,15 +2,24 @@ package dev.geeks.characters;
 
 import java.util.Random;
 
-public class Character {
+/**
+ * 
+ * @author Costel
+ * 
+ *         This class creates a standard type character from which Carl and the
+ *         Beast will inherit.
+ */
+public class StandardCharacter {
 
+	protected Boolean isHuman;
 	protected int health;
 	protected int attackPower;
 	protected int defensePower;
 	protected int speed;
 	protected int luck;
 
-	public Character(int health, int attackPower, int defensePower, int speed, int luck) {
+	public StandardCharacter(Boolean isHuman, int health, int attackPower, int defensePower, int speed, int luck) {
+		this.isHuman = isHuman;
 		this.health = health;
 		this.attackPower = attackPower;
 		this.defensePower = defensePower;
@@ -18,6 +27,21 @@ public class Character {
 		this.luck = luck;
 	}
 
+	/**
+	 * 
+	 * @param luck
+	 * @return true if the attack is missed, false otherwise
+	 */
+	protected Boolean attackIsMissed(int luck) {
+		return new Random().nextDouble() < (luck / 100);
+	}
+
+	/**
+	 * 
+	 * @param lowerLimit
+	 * @param upperLimit
+	 * @return a random number between lowerLimit and upperLimit
+	 */
 	private static int createRandomNumber(int lowerLimit, int upperLimit) {
 		Random ran = new Random();
 
@@ -82,5 +106,28 @@ public class Character {
 
 	public int getLuck() {
 		return luck;
+	}
+
+	/**
+	 * 
+	 * @param power
+	 * @param o
+	 * @return remaining health of the character that is attacked
+	 */
+	public int attack(int power, StandardCharacter o) {
+		if (attackIsMissed(o.getLuck())) {
+			System.out.println("This character happened to be lucky and was not hit.");
+			return 0;
+		}
+
+		int remainingHealth = o.getHealth();
+		remainingHealth -= power - o.getDefensePower();
+
+		if (remainingHealth < 0)
+			return 0;
+		else if (remainingHealth > 100)
+			return 100;
+		else
+			return remainingHealth;
 	}
 }

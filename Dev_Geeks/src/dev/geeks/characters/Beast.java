@@ -1,9 +1,10 @@
 package dev.geeks.characters;
 
-public class Beast extends Character {
+public class Beast extends StandardCharacter {
 
 	public Beast() {
-		super(createHealthBeast(), createAttackBeast(), createDefenseBeast(), createSpeedBeast(), createLuckBeast());
+		super(false, createHealthBeast(), createAttackBeast(), createDefenseBeast(), createSpeedBeast(),
+				createLuckBeast());
 	}
 
 }
