@@ -43,7 +43,6 @@ public class GameplayClass {
 
 		for (int playCount = 1; playCount <= 20; playCount++) {
 			System.out.println("Round " + playCount + " starts: ");
-			System.out.println(turn);
 			if (turn == 1) {
 				Boolean useDragonPower = c.canUseDragonPower();
 
